@@ -1,6 +1,5 @@
 "use client";
-
-import { fetchStudents, updateStudent } from "@/services/api";
+import { deleteStudent, fetchStudents, updateStudent } from "@/services/api";
 import { useState, useEffect } from "react";
 import { Button, Form, Table } from "antd";
 import { Student } from "../types/student";
@@ -8,6 +7,7 @@ import studentColumns from "../utils/column";
 import StudentDetailModal from "../components/StudentDetailModal";
 import EditStudentModal from "../components/EditStudentModal";
 import AddStudentModal from "../components/AddStudentModal";
+import DeleteStudentModal from "../components/DeleteStudentModal";
 
 export default function Home() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -70,6 +70,8 @@ export default function Home() {
   };
 
   const handleDelete = async (student: Student) => {
+    setSelectedStudent(student);
+    setDeleteModalVisible(true);
     setPopoverVisible((prev) => ({ ...prev, [student._id]: false }));
   };
 
@@ -84,6 +86,19 @@ export default function Home() {
     }
   };
 
+  const handleDeleteSuccess = async () => {
+    if (selectedStudent && selectedStudent._id) {
+      try {
+        await deleteStudent(selectedStudent._id);
+        fetchStudents().then((data) => setStudents(data));
+      } catch (error) {
+        console.error("Error deleting student:", error);
+      } finally {
+        setDeleteModalVisible(false);
+      }
+    }
+  };
+
   const columns = studentColumns({
     onView: handleView,
     onEdit: handleEdit,
@@ -91,6 +106,17 @@ export default function Home() {
     popoverVisible,
     setPopoverVisible,
   });
+
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const showDeleteModal = (student: Student) => {
+    setSelectedStudent(student);
+    setDeleteModalVisible(true);
+  };
+
+  const handleDeleteModalCancel = () => {
+    setDeleteModalVisible(false);
+    setSelectedStudent(null);
+  };
 
   return (
     <div style={{ padding: "24px", overflowX: "auto" }}>
@@ -124,6 +150,12 @@ export default function Home() {
         open={editModalVisible}
         onCancel={handleEditModalCancel}
         onSuccess={handleEditSuccess}
+        student={selectedStudent}
+      />
+      <DeleteStudentModal
+        open={deleteModalVisible}
+        onCancel={handleDeleteModalCancel}
+        onSuccess={handleDeleteSuccess}
         student={selectedStudent}
       />
     </div>

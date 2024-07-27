@@ -45,3 +45,13 @@ export const updateStudent = async (student: Student, id: any) => {
     throw error;
   }
 };
+
+export const deleteStudent = async (id: any) => {
+  try {
+    const response = await apiClient.delete(`/student/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting student:", error);
+    throw error;
+  }
+};
