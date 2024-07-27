@@ -1,4 +1,4 @@
-import { Modal, Form, Input, Row, Col, DatePicker } from "antd";
+import { Modal, Form, Input, Row, Col, DatePicker, Radio } from "antd";
 import React from "react";
 import { Student } from "../types/student";
 
@@ -51,13 +51,13 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item name="yearOfSubmission" label="ჩაბ. წელი">
-              <Input disabled />
+              <DatePicker picker="year" format="YYYY" disabled />
             </Form.Item>
           </Col>
 
           <Col span={12}>
             <Form.Item name="graduationYear" label="დამთ. წელი">
-              <Input disabled />
+              <DatePicker picker="year" format="YYYY" disabled />
             </Form.Item>
           </Col>
         </Row>
@@ -113,7 +113,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
 
           <Col span={12}>
             <Form.Item name="dateOfBirth" label="დაბადების თარიღი">
-              <DatePicker format="YYYY-MM-DD" />
+              <DatePicker format="YYYY-MM-DD" disabled />
             </Form.Item>
           </Col>
         </Row>
@@ -135,7 +135,16 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item name="course" label="Freshman / Transfer">
-              <Input disabled />
+              <Radio.Group disabled>
+                <div style={{ display: "flex" }}>
+                  <Radio value="FRESHMAN" className="course-radio">
+                    <span className="circle-indicator" aria-disabled /> FRESHMAN
+                  </Radio>
+                  <Radio value="TRANSFER" className="course-radio">
+                    <span className="circle-indicator" /> TRANSFER
+                  </Radio>
+                </div>
+              </Radio.Group>
             </Form.Item>
           </Col>
 

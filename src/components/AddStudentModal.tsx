@@ -1,4 +1,4 @@
-import { Modal, Form, Input, Row, Col, DatePicker, Button } from "antd";
+import { Modal, Form, Input, Row, Col, DatePicker, Button, Radio } from "antd";
 import { FormInstance } from "antd/es/form";
 import { addStudent } from "@/services/api";
 import React from "react";
@@ -57,12 +57,40 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
       >
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="idNumber" label="პირადი N">
+            <Form.Item
+              name="idNumber"
+              label="პირადი N"
+              rules={[
+                {
+                  required: true,
+                  message: "გთხოვთ შეიყვანოთ პირადი ნომერი!",
+                },
+                {
+                  type: "number",
+                  transform: (value) => Number(value),
+                  message: "პირადი ნომერი უნდა იყოს რიცხვი!",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="code" label="კოდი">
+            <Form.Item
+              name="code"
+              label="კოდი"
+              rules={[
+                {
+                  required: true,
+                  message: "გთხოვთ შეიყვანოთ კოდი!",
+                },
+                {
+                  type: "number",
+                  transform: (value) => Number(value),
+                  message: "კოდი უნდა იყოს რიცხვი!",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
@@ -70,12 +98,20 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="name" label="სახელი">
+            <Form.Item
+              name="name"
+              label="სახელი"
+              rules={[{ required: true, message: "გთხოვთ შეიყვანოთ სახელი!" }]}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="lastName" label="გვარი">
+            <Form.Item
+              name="lastName"
+              label="გვარი"
+              rules={[{ required: true, message: "გთხოვთ შეიყვანოთ გვარი!" }]}
+            >
               <Input />
             </Form.Item>
           </Col>
@@ -84,12 +120,12 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item name="yearOfSubmission" label="ჩაბ. წელი">
-              <Input type="number" />
+              <DatePicker picker="year" format="YYYY" />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item name="graduationYear" label="დამთ. წელი">
-              <Input type="number" />
+              <DatePicker picker="year" format="YYYY" />
             </Form.Item>
           </Col>
         </Row>
@@ -114,7 +150,11 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="email" label="ელფოსტა">
+            <Form.Item
+              name="email"
+              label="ელფოსტა"
+              rules={[{ required: true, message: "გთხოვთ შეიყვანოთ ელფოსტა!" }]}
+            >
               <Input />
             </Form.Item>
           </Col>
@@ -161,12 +201,48 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="course" label="Freshman / Transfer">
-              <Input />
+            <Form.Item
+              name="course"
+              label="Freshman / Transfer"
+              rules={[
+                {
+                  required: true,
+                  message: "გთხოვთ აირჩიოთ!",
+                },
+              ]}
+            >
+              <Radio.Group>
+                <div style={{ display: "flex" }}>
+                  <Radio value="FRESHMAN" className="course-radio">
+                    <span className="circle-indicator" /> FRESHMAN
+                  </Radio>
+                  <Radio value="TRANSFER" className="course-radio">
+                    <span className="circle-indicator" /> TRANSFER
+                  </Radio>
+                </div>
+              </Radio.Group>
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="mobility" label="მობილობის სემ კურსი">
+            <Form.Item
+              name="mobility"
+              label="მობილობის სემ კურსი"
+              rules={[
+                {
+                  validator: (_, value) => {
+                    if (value === undefined || value === "") {
+                      return Promise.resolve();
+                    }
+                    if (!isNaN(value)) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      "მობილობის სემ კურსი უნდა იყოს რიცხვი!"
+                    );
+                  },
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>

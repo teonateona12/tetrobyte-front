@@ -1,8 +1,10 @@
 import { ColumnsType } from "antd/es/table";
 import { Student } from "../types/student";
-import { Button, Menu, Popover } from "antd";
+import { Button, Menu, Popover, DatePicker } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
+import moment from "moment";
 import "./column.css";
+
 interface StudentColumnsProps {
   onView: (record: Student) => void;
   onEdit: (record: Student) => void;
@@ -62,8 +64,14 @@ const studentColumns = ({
     title: "ჩაბ. წელი",
     dataIndex: "yearOfSubmission",
     key: "yearOfSubmission",
+    render: (text: string) => moment(text).format("YYYY"),
   },
-  { title: "დამთ. წელი", dataIndex: "graduationYear", key: "graduationYear" },
+  {
+    title: "დამთ. წელი",
+    dataIndex: "graduationYear",
+    key: "graduationYear",
+    render: (text: string) => moment(text).format("YYYY"),
+  },
   { title: "სტატუსი", dataIndex: "status", key: "status" },
   { title: "სკოლა", dataIndex: "school", key: "school" },
   { title: "პროგრამა", dataIndex: "program", key: "program" },
@@ -71,11 +79,21 @@ const studentColumns = ({
   { title: "ვაუჩერი", dataIndex: "voucher", key: "voucher" },
   { title: "გრანტი", dataIndex: "grant", key: "grant" },
   { title: "მოქალაქეობა", dataIndex: "citizenship", key: "citizenship" },
-  { title: "დაბადების თარიღი", dataIndex: "dateOfBirth", key: "dateOfBirth" },
+  {
+    title: "დაბადების თარიღი",
+    dataIndex: "dateOfBirth",
+    key: "dateOfBirth",
+    render: (text: string) => moment(text).format("YYYY-MM-DD"),
+  },
   { title: "დაბადების ქალაქი", dataIndex: "cityOfBirth", key: "cityOfBirth" },
   { title: "სწავლების ენა", dataIndex: "language", key: "language" },
   { title: "Freshman / Transfer", dataIndex: "course", key: "course" },
-  { title: "მობილობის სემ კურსი", dataIndex: "mobility", key: "mobility" },
+  {
+    title: "მობილობის სემ კურსი",
+    dataIndex: "mobility",
+    key: "mobility",
+    render: (text: number) => text,
+  },
   { title: "აგენტი", dataIndex: "agent", key: "agent" },
 ];
 
