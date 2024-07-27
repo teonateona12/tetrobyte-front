@@ -19,7 +19,7 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
       open={open}
       onCancel={onCancel}
       footer={null}
-      key={student?.idNumber}
+      key={student?._id}
     >
       <Form layout="vertical" initialValues={student || {}}>
         <Row gutter={16}>

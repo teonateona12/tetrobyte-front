@@ -25,7 +25,7 @@ const studentColumns = ({
     key: "actions",
     render: (_, record) => {
       const handlePopoverVisibleChange = (visible: boolean) => {
-        setPopoverVisible((prev) => ({ ...prev, [record.idNumber]: visible }));
+        setPopoverVisible((prev) => ({ ...prev, [record._id]: visible }));
       };
 
       return (
@@ -42,7 +42,7 @@ const studentColumns = ({
           trigger="click"
           placement="rightTop"
           overlayClassName="popover-overlay"
-          open={popoverVisible[record.idNumber] ?? false}
+          open={popoverVisible[record._id] ?? false}
           onOpenChange={handlePopoverVisibleChange}
         >
           <Button

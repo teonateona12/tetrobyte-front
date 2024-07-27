@@ -1,60 +1,31 @@
+import React, { useEffect } from "react";
 import { Modal, Form, Input, Row, Col, DatePicker, Button } from "antd";
-import { FormInstance } from "antd/es/form";
-import { addStudent } from "@/services/api";
-import React from "react";
+import { Student } from "../types/student";
 
-interface AddStudentModalProps {
+interface EditStudentModalProps {
   open: boolean;
   onCancel: () => void;
-  onSuccess: () => void;
-  form: FormInstance;
+  onSuccess: (updatedStudent: Student) => void;
+  student: Student | null;
 }
 
-const AddStudentModal: React.FC<AddStudentModalProps> = ({
+const EditStudentModal: React.FC<EditStudentModalProps> = ({
   open,
   onCancel,
-  form,
   onSuccess,
+  student,
 }) => {
-  const handleFormSubmit = async () => {
-    try {
-      const values = await form.validateFields();
-      await addStudent(values);
-      form.resetFields();
-      onSuccess();
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Failed to submit form:", error.message);
-      } else {
-        console.error("An unexpected error occurred:", error);
-      }
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (student) {
+      form.setFieldsValue(student);
     }
-  };
+  }, [student, form]);
 
   return (
-    <Modal
-      title="ახლის დამატება"
-      open={open}
-      onCancel={onCancel}
-      onOk={handleFormSubmit}
-      okText="დამატება"
-      footer={
-        <div>
-          <Button key="submit" type="primary" onClick={handleFormSubmit}>
-            დამატება
-          </Button>
-        </div>
-      }
-    >
-      <Form
-        form={form}
-        layout="vertical"
-        initialValues={{
-          yearOfSubmission: undefined,
-          graduationYear: undefined,
-          dateOfBirth: undefined,
-        }}
-      >
+    <Modal title="რედაქტირება" open={open} onCancel={onCancel} footer={null}>
+      <Form form={form} layout="vertical" onFinish={onSuccess}>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item name="idNumber" label="პირადი N">
@@ -179,9 +150,15 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            შენახვა
+          </Button>
+        </Form.Item>
       </Form>
     </Modal>
   );
 };
 
-export default AddStudentModal;
+export default EditStudentModal;

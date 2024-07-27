@@ -1,3 +1,4 @@
+import { Student } from "@/types/student";
 import axios, { AxiosError } from "axios";
 
 const apiClient = axios.create({
@@ -7,7 +8,7 @@ const apiClient = axios.create({
   },
 });
 
-export const addStudent = async (studentData: any) => {
+export const addStudent = async (studentData: Student) => {
   try {
     const response = await apiClient.post("/student", studentData);
     return response.data;
@@ -31,6 +32,16 @@ export const fetchStudents = async () => {
     } else {
       console.error("Unexpected error:", error);
     }
+    throw error;
+  }
+};
+
+export const updateStudent = async (student: Student, id: any) => {
+  try {
+    const response = await apiClient.put(`/student/${id}`, student);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating student:", error);
     throw error;
   }
 };
