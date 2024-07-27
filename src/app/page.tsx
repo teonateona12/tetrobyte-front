@@ -4,7 +4,7 @@ import { fetchStudents } from "@/services/api";
 import { useState, useEffect } from "react";
 import { Button, Form, Table } from "antd";
 import { Student } from "../types/student";
-import studentColumns from "../utils/columns";
+import studentColumns from "../utils/column";
 import AddStudentModal from "../components/AddStudentModal";
 
 export default function Home() {
@@ -59,7 +59,7 @@ export default function Home() {
         scroll={{ x: "max-content" }}
       />
       <AddStudentModal
-        visible={modalVisible}
+        open={modalVisible}
         onCancel={handleModalCancel}
         onSuccess={handleModalSuccess}
         form={form}

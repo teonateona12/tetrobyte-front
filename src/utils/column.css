@@ -1,0 +1,7 @@
+.horizontal-dots {
+  transform: rotate(90deg);
+  background-color: white;
+}
+.ant-popover-content {
+  margin-top: -60px;
+}

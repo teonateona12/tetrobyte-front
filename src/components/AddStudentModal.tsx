@@ -4,14 +4,14 @@ import { addStudent } from "@/services/api";
 import React from "react";
 
 interface AddStudentModalProps {
-  visible: boolean;
+  open: boolean;
   onCancel: () => void;
   onSuccess: () => void;
   form: FormInstance;
 }
 
 const AddStudentModal: React.FC<AddStudentModalProps> = ({
-  visible,
+  open,
   onCancel,
   form,
   onSuccess,
@@ -33,7 +33,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
   return (
     <Modal
       title="ახლის დამატება"
-      visible={visible}
+      open={open}
       onCancel={onCancel}
       onOk={handleFormSubmit}
       okText="დამატება"
