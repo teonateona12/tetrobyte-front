@@ -3,8 +3,8 @@
 import { fetchStudents } from "@/services/api";
 import { useState, useEffect } from "react";
 import { Button, Form, Table } from "antd";
-import { Student } from "../types/student"; // Adjust the import path as needed
-import studentColumns from "../utils/columns"; // Adjust the import path as needed
+import { Student } from "../types/student";
+import studentColumns from "../utils/columns";
 import AddStudentModal from "../components/AddStudentModal";
 
 export default function Home() {
@@ -41,18 +41,6 @@ export default function Home() {
     fetchStudents().then((data) => setStudents(data));
   };
 
-  const handleOk = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        console.log("Form values:", values);
-        handleModalSuccess();
-      })
-      .catch((info) => {
-        console.log("Validation Failed:", info);
-      });
-  };
-
   return (
     <div style={{ padding: "24px", overflowX: "auto" }}>
       <h1>სტუდენტები</h1>
@@ -74,7 +62,6 @@ export default function Home() {
         visible={modalVisible}
         onCancel={handleModalCancel}
         onSuccess={handleModalSuccess}
-        handleOk={handleOk}
         form={form}
       />
     </div>
