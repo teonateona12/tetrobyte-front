@@ -1,7 +1,8 @@
 "use client";
-import { deleteStudent, fetchStudents, updateStudent } from "@/services/api";
+
 import { useState, useEffect } from "react";
-import { Button, Form, Table } from "antd";
+import { Button, Table, Form } from "antd";
+import { deleteStudent, fetchStudents, updateStudent } from "@/services/api";
 import { Student } from "../types/student";
 import studentColumns from "../utils/column";
 import StudentDetailModal from "../components/StudentDetailModal";
@@ -15,6 +16,7 @@ export default function Home() {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [detailModalVisible, setDetailModalVisible] = useState<boolean>(false);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [popoverVisible, setPopoverVisible] = useState<Record<string, boolean>>(
     {}
@@ -22,7 +24,7 @@ export default function Home() {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    const getStudents = async () => {
+    const loadStudents = async () => {
       try {
         const data = await fetchStudents();
         setStudents(data);
@@ -33,97 +35,69 @@ export default function Home() {
       }
     };
 
-    getStudents();
+    loadStudents();
   }, []);
 
-  const handleAddStudent = () => {
-    setModalVisible(true);
-  };
-
-  const handleModalCancel = () => {
-    setModalVisible(false);
-  };
-
-  const handleDetailModalCancel = () => {
-    setDetailModalVisible(false);
-  };
-
-  const handleEditModalCancel = () => {
-    setEditModalVisible(false);
-  };
-
-  const handleModalSuccess = () => {
-    setModalVisible(false);
-    fetchStudents().then((data) => setStudents(data));
-  };
-
-  const handleView = (student: Student) => {
-    setSelectedStudent(student);
-    setDetailModalVisible(true);
-    setPopoverVisible((prev) => ({ ...prev, [student._id]: false }));
-  };
-
-  const handleEdit = (student: Student) => {
-    setSelectedStudent(student);
-    setEditModalVisible(true);
-    setPopoverVisible((prev) => ({ ...prev, [student._id]: false }));
-  };
-
-  const handleDelete = async (student: Student) => {
-    setSelectedStudent(student);
-    setDeleteModalVisible(true);
-    setPopoverVisible((prev) => ({ ...prev, [student._id]: false }));
-  };
-
-  const handleEditSuccess = async (updatedStudent: Student) => {
-    try {
-      await updateStudent(updatedStudent, selectedStudent?._id);
-      fetchStudents().then((data) => setStudents(data));
-    } catch (error) {
-      console.error("Error updating student:", error);
-    } finally {
-      setEditModalVisible(false);
+  const handleModalVisibility = (modalType: string, visible: boolean) => {
+    switch (modalType) {
+      case "add":
+        setModalVisible(visible);
+        break;
+      case "detail":
+        setDetailModalVisible(visible);
+        break;
+      case "edit":
+        setEditModalVisible(visible);
+        break;
+      case "delete":
+        setDeleteModalVisible(visible);
+        break;
     }
   };
 
-  const handleDeleteSuccess = async () => {
-    if (selectedStudent && selectedStudent._id) {
-      try {
-        await deleteStudent(selectedStudent._id);
-        fetchStudents().then((data) => setStudents(data));
-      } catch (error) {
-        console.error("Error deleting student:", error);
-      } finally {
-        setDeleteModalVisible(false);
+  const handleSuccess = async (
+    type: string,
+    action: (student: Student) => Promise<void>
+  ) => {
+    try {
+      if (selectedStudent) {
+        await action(selectedStudent);
+        const updatedStudents = await fetchStudents();
+        setStudents(updatedStudents);
       }
+    } catch (error) {
+      console.error(`Error ${type} student:`, error);
+    } finally {
+      handleModalVisibility(type, false);
     }
   };
 
   const columns = studentColumns({
-    onView: handleView,
-    onEdit: handleEdit,
-    onDelete: handleDelete,
+    onView: (student) => {
+      setSelectedStudent(student);
+      handleModalVisibility("detail", true);
+      setPopoverVisible((prev) => ({ ...prev, [student._id]: false }));
+    },
+    onEdit: (student) => {
+      setSelectedStudent(student);
+      handleModalVisibility("edit", true);
+      setPopoverVisible((prev) => ({ ...prev, [student._id]: false }));
+    },
+    onDelete: (student) => {
+      setSelectedStudent(student);
+      handleModalVisibility("delete", true);
+      setPopoverVisible((prev) => ({ ...prev, [student._id]: false }));
+    },
     popoverVisible,
     setPopoverVisible,
   });
-
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-  const showDeleteModal = (student: Student) => {
-    setSelectedStudent(student);
-    setDeleteModalVisible(true);
-  };
-
-  const handleDeleteModalCancel = () => {
-    setDeleteModalVisible(false);
-    setSelectedStudent(null);
-  };
 
   return (
     <div style={{ padding: "24px", overflowX: "auto" }}>
       <h1>სტუდენტები</h1>
       <Button
         type="primary"
-        onClick={handleAddStudent}
+        onClick={() => handleModalVisibility("add", true)}
         style={{ marginBottom: "16px" }}
       >
         ახლის დამატება
@@ -137,26 +111,31 @@ export default function Home() {
       />
       <AddStudentModal
         open={modalVisible}
-        onCancel={handleModalCancel}
-        onSuccess={handleModalSuccess}
+        onCancel={() => handleModalVisibility("add", false)}
+        onSuccess={() => handleSuccess("add", () => Promise.resolve())}
         form={form}
       />
       <StudentDetailModal
         open={detailModalVisible}
-        onCancel={handleDetailModalCancel}
+        onCancel={() => handleModalVisibility("detail", false)}
         student={selectedStudent}
       />
       <EditStudentModal
         open={editModalVisible}
-        onCancel={handleEditModalCancel}
-        onSuccess={handleEditSuccess}
+        onCancel={() => handleModalVisibility("edit", false)}
+        onSuccess={(updatedStudent) =>
+          handleSuccess("edit", (student) =>
+            updateStudent(updatedStudent, student._id)
+          )
+        }
         student={selectedStudent}
       />
       <DeleteStudentModal
         open={deleteModalVisible}
-        onCancel={handleDeleteModalCancel}
-        onSuccess={handleDeleteSuccess}
-        student={selectedStudent}
+        onCancel={() => handleModalVisibility("delete", false)}
+        onSuccess={() =>
+          handleSuccess("delete", (student) => deleteStudent(student._id))
+        }
       />
     </div>
   );

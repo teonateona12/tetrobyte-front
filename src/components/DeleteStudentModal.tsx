@@ -1,17 +1,14 @@
 import React from "react";
 import { Modal } from "antd";
-import { Student } from "../types/student";
 
 interface DeleteStudentModalProps {
   open: boolean;
-  student: Student | null;
   onCancel: () => void;
   onSuccess: () => void;
 }
 
 const DeleteStudentModal: React.FC<DeleteStudentModalProps> = ({
   open,
-  student,
   onCancel,
   onSuccess,
 }) => {
