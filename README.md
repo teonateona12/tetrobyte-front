@@ -21,7 +21,11 @@ Follow these steps to set up and run the project on your local machine:
    ```bash
    npm install
 
+   ```
+
    Using yarn:
+
+   ```bash
    yarn install
 
    ```
@@ -33,6 +37,11 @@ Follow these steps to set up and run the project on your local machine:
    ```bash
    npm run dev
 
+   ```
+
    Using yarn:
+
+   ```bash
    yarn dev
+
    ```
