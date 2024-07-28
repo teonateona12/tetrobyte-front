@@ -10,6 +10,7 @@ import EditStudentModal from "../components/EditStudentModal";
 import AddStudentModal from "../components/AddStudentModal";
 import DeleteStudentModal from "../components/DeleteStudentModal";
 import Header from "@/components/Header";
+import { parse } from "json2csv";
 
 export default function Home() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -92,19 +93,46 @@ export default function Home() {
     popoverVisible,
     setPopoverVisible,
   });
+  const handleExport = () => {
+    const csv = parse(students);
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "students.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
 
   return (
     <div>
       <Header />
-      <div style={{ overflowX: "auto", padding: "20px 100px" }}>
-        <h1>{toGeorgianUppercase("სტუდენტები")}</h1>
-        <Button
-          type="primary"
-          onClick={() => handleModalVisibility("add", true)}
-          style={{ marginBottom: "16px" }}
+      <div style={{ overflowX: "auto", padding: "20px 0 20px 100px" }}>
+        <div className="button-div">
+          <div>
+            <button></button>
+            <button>yvela studenti</button>
+          </div>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button className="export" onClick={handleExport}>
+              ექსპორტი
+            </button>
+            <Button
+              type="primary"
+              onClick={() => handleModalVisibility("add", true)}
+            >
+              {toGeorgianUppercase("ახლის დამატება")}
+            </Button>
+          </div>
+        </div>
+
+        <h1
+          style={{ fontSize: "24px", lineHeight: "32px" }}
+          className="modal-title"
         >
-          {toGeorgianUppercase("ახლის დამატება")}
-        </Button>
+          {toGeorgianUppercase("სტუდენტები")}
+        </h1>
         <Table
           dataSource={students}
           columns={columns}

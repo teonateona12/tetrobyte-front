@@ -169,3 +169,16 @@
   font-size: 16px;
   text-align: end;
 }
+.button-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.export {
+  border-radius: 8px;
+  border: 1px solid rgba(17, 91, 164, 0.2);
+  height: 35px;
+  width: 162px;
+  background-color: white;
+  margin-left: 20px;
+}
