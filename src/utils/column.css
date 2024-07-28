@@ -133,3 +133,39 @@
   border-radius: 8px;
   border: none;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 100px 30px 100px;
+  box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-div {
+  display: flex;
+  gap: 5px;
+}
+
+.avatar-div p,
+.avatar-div h6 {
+  margin: 0;
+}
+
+.avatar-div div {
+  margin: auto;
+}
+
+.avatar-div p {
+  color: #101c5c;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21.76px;
+  text-align: end;
+}
+
+.avatar-div h6 {
+  color: #101c5c;
+  opacity: 50%;
+  font-size: 16px;
+  text-align: end;
+}
