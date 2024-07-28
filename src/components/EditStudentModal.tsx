@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Modal, Form, Input, Row, Col, DatePicker, Button, Radio } from "antd";
+import moment from "moment";
 import { Student } from "../types/student";
 import { toGeorgianUppercase } from "@/utils/column";
 
@@ -20,7 +21,20 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
 
   useEffect(() => {
     if (student) {
-      form.setFieldsValue(student);
+      form.setFieldsValue({
+        ...student,
+        yearOfSubmission: student.yearOfSubmission
+          ? moment(student.yearOfSubmission, "YYYY")
+          : null,
+        graduationYear: student.graduationYear
+          ? moment(student.graduationYear, "YYYY")
+          : null,
+        dateOfBirth: student.dateOfBirth
+          ? moment(student.dateOfBirth, "YYYY-MM-DD")
+          : null,
+      });
+    } else {
+      form.resetFields();
     }
   }, [student, form]);
 
@@ -34,8 +48,27 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
       open={open}
       onCancel={onCancel}
       footer={null}
+      centered
     >
-      <Form form={form} layout="vertical" onFinish={onSuccess}>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={(values) => {
+          onSuccess({
+            ...student,
+            ...values,
+            yearOfSubmission: values.yearOfSubmission
+              ? values.yearOfSubmission.year()
+              : null,
+            graduationYear: values.graduationYear
+              ? values.graduationYear.year()
+              : null,
+            dateOfBirth: values.dateOfBirth
+              ? values.dateOfBirth.format("YYYY-MM-DD")
+              : null,
+          });
+        }}
+      >
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item

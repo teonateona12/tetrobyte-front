@@ -2,6 +2,7 @@ import { Modal, Form, Input, Row, Col, DatePicker, Radio } from "antd";
 import React from "react";
 import { Student } from "../types/student";
 import { toGeorgianUppercase } from "@/utils/column";
+import moment from "moment";
 
 interface StudentDetailModalProps {
   open: boolean;
@@ -26,7 +27,22 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
       footer={null}
       key={student?._id}
     >
-      <Form layout="vertical" initialValues={student || {}}>
+      <Form
+        layout="vertical"
+        initialValues={{
+          ...student,
+          yearOfSubmission: student?.yearOfSubmission
+            ? moment(student.yearOfSubmission, "YYYY")
+            : null,
+          graduationYear: student?.graduationYear
+            ? moment(student.graduationYear, "YYYY")
+            : null,
+          dateOfBirth: student?.dateOfBirth
+            ? moment(student.dateOfBirth, "YYYY-MM-DD")
+            : null,
+        }}
+      >
+        {" "}
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -80,7 +96,6 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
-
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -108,7 +123,6 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
-
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -136,7 +150,6 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
-
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -164,7 +177,6 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
-
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -192,7 +204,6 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
-
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -220,7 +231,6 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
-
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -248,7 +258,6 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
-
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -291,7 +300,6 @@ const StudentDetailModal: React.FC<StudentDetailModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
-
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item

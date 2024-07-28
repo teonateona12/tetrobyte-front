@@ -111,13 +111,11 @@
   color: #115ba4;
 }
 
-/* Flexbox container for modal footer buttons */
 .ant-modal-footer {
   display: flex;
   justify-content: space-between;
 }
 
-/* Custom styles for OK button */
 .custom-ok-button {
   background-color: #104e8a;
   color: #fff;
@@ -127,7 +125,6 @@
   border: none;
 }
 
-/* Custom styles for Cancel button */
 .custom-cancel-button {
   background-color: #104e8a0d;
   color: #115ba4;
