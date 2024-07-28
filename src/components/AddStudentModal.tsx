@@ -1,8 +1,20 @@
-import { Modal, Form, Input, Row, Col, DatePicker, Button, Radio } from "antd";
+import { Modal, Form, Input, Row, Col, Button, Radio, Select } from "antd";
 import { FormInstance } from "antd/es/form";
 import { addStudent } from "@/services/api";
 import React from "react";
 import { toGeorgianUppercase } from "@/utils/column";
+import {
+  yearOfSubmissionOptions,
+  graduationYearOptions,
+  citizenshipOptions,
+  dateOfBirthOptions,
+  cityOfBirthOptions,
+  schoolOptions,
+  programOptions,
+  agentOptions,
+  mobilityOptions,
+  grantyOptions,
+} from "../utils/dropdownData";
 
 interface AddStudentModalProps {
   open: boolean;
@@ -44,7 +56,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
       onOk={handleFormSubmit}
       okText={toGeorgianUppercase("დამატება")}
       footer={
-        <div>
+        <div style={{ width: "100%" }}>
           <Button key="submit" type="primary" onClick={handleFormSubmit}>
             {toGeorgianUppercase("დამატება")}
           </Button>
@@ -64,11 +76,6 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="idNumber"
-              label={
-                <span className="formItemLabel">
-                  {toGeorgianUppercase("პირადი N")}
-                </span>
-              }
               rules={[
                 {
                   required: true,
@@ -84,6 +91,11 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
                   ),
                 },
               ]}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("პირადი N")}
+                </span>
+              }
             >
               <Input placeholder="პირადი N" />
             </Form.Item>
@@ -91,11 +103,6 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="code"
-              label={
-                <span className="formItemLabel">
-                  {toGeorgianUppercase("კოდი")}
-                </span>
-              }
               rules={[
                 {
                   required: true,
@@ -107,6 +114,11 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
                   message: toGeorgianUppercase("კოდი უნდა იყოს რიცხვი!"),
                 },
               ]}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("კოდი")}
+                </span>
+              }
             >
               <Input placeholder="კოდი" />
             </Form.Item>
@@ -117,17 +129,17 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="name"
-              label={
-                <span className="formItemLabel">
-                  {toGeorgianUppercase("სახელი")}
-                </span>
-              }
               rules={[
                 {
                   required: true,
                   message: toGeorgianUppercase("გთხოვთ შეიყვანოთ სახელი!"),
                 },
               ]}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("სახელი")}
+                </span>
+              }
             >
               <Input placeholder="სახელი" />
             </Form.Item>
@@ -135,17 +147,17 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="lastName"
-              label={
-                <span className="formItemLabel">
-                  {toGeorgianUppercase("გვარი")}
-                </span>
-              }
               rules={[
                 {
                   required: true,
                   message: toGeorgianUppercase("გთხოვთ შეიყვანოთ გვარი!"),
                 },
               ]}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("გვარი")}
+                </span>
+              }
             >
               <Input placeholder="გვარი" />
             </Form.Item>
@@ -156,25 +168,49 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="yearOfSubmission"
+              rules={[
+                {
+                  required: true,
+                  message: "გთხოვთ შეიყვანოთ ჩაბარების წელი!",
+                },
+              ]}
               label={
                 <span className="formItemLabel">
                   {toGeorgianUppercase("ჩაბ. წელი")}
                 </span>
               }
             >
-              <DatePicker picker="year" format="YYYY" />
+              <Select className="formItemLabel">
+                {yearOfSubmissionOptions.map((year) => (
+                  <Select.Option key={year} value={year}>
+                    {year}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="graduationYear"
+              rules={[
+                {
+                  required: true,
+                  message: "გთხოვთ შეიყვანოთ დამთავრების წელი!",
+                },
+              ]}
               label={
                 <span className="formItemLabel">
                   {toGeorgianUppercase("დამთ. წელი")}
                 </span>
               }
             >
-              <DatePicker picker="year" format="YYYY" />
+              <Select>
+                {graduationYearOptions.map((year) => (
+                  <Select.Option key={year} value={year}>
+                    {year}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
         </Row>
@@ -195,13 +231,20 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="school"
+              rules={[{ required: true, message: "გთხოვთ შეიყვანოთ სკოლა!" }]}
               label={
                 <span className="formItemLabel">
                   {toGeorgianUppercase("სკოლა")}
                 </span>
               }
             >
-              <Input placeholder="სკოლა" />
+              <Select>
+                {schoolOptions.map((school) => (
+                  <Select.Option key={school} value={school}>
+                    {school}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
         </Row>
@@ -210,29 +253,38 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="program"
+              rules={[
+                { required: true, message: "გთხოვთ შეიყვანოთ პროგრამა!" },
+              ]}
               label={
                 <span className="formItemLabel">
                   {toGeorgianUppercase("პროგრამა")}
                 </span>
               }
             >
-              <Input placeholder="პროგრამა" />
+              <Select>
+                {programOptions.map((program) => (
+                  <Select.Option key={program} value={program}>
+                    {program}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="email"
-              label={
-                <span className="formItemLabel">
-                  {toGeorgianUppercase("ელფოსტა")}
-                </span>
-              }
               rules={[
                 {
                   required: true,
                   message: toGeorgianUppercase("გთხოვთ შეიყვანოთ ელფოსტა!"),
                 },
               ]}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("ელფოსტა")}
+                </span>
+              }
             >
               <Input placeholder="ელფოსტა" />
             </Form.Item>
@@ -255,13 +307,20 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="grant"
+              rules={[{ required: true, message: "გთხოვთ შეიყვანოთ გრანტი!" }]}
               label={
                 <span className="formItemLabel">
                   {toGeorgianUppercase("გრანტი")}
                 </span>
               }
             >
-              <Input placeholder="გრანტი" />
+              <Select>
+                {grantyOptions.map((grant) => (
+                  <Select.Option key={grant} value={grant}>
+                    {grant}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
         </Row>
@@ -270,25 +329,46 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="citizenship"
+              rules={[
+                { required: true, message: "გთხოვთ შეიყვანოთ მოქალაქეობა!" },
+              ]}
               label={
                 <span className="formItemLabel">
                   {toGeorgianUppercase("მოქალაქეობა")}
                 </span>
               }
             >
-              <Input placeholder="მოქალაქეობა" />
+              <Select>
+                {citizenshipOptions.map((citizenship) => (
+                  <Select.Option key={citizenship} value={citizenship}>
+                    {citizenship}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="dateOfBirth"
+              rules={[
+                {
+                  required: true,
+                  message: "გთხოვთ შეიყვანოთ დაბადების თარიღი!",
+                },
+              ]}
               label={
                 <span className="formItemLabel">
                   {toGeorgianUppercase("დაბადების თარიღი")}
                 </span>
               }
             >
-              <DatePicker format="YYYY-MM-DD" />
+              <Select>
+                {dateOfBirthOptions.map((date) => (
+                  <Select.Option key={date} value={date}>
+                    {date}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
         </Row>
@@ -297,13 +377,25 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="cityOfBirth"
+              rules={[
+                {
+                  required: true,
+                  message: "გთხოვთ შეიყვანოთ დაბადების ქალაქი!",
+                },
+              ]}
               label={
                 <span className="formItemLabel">
                   {toGeorgianUppercase("დაბადების ქალაქი")}
                 </span>
               }
             >
-              <Input placeholder="დაბადების ქალაქი" />
+              <Select>
+                {cityOfBirthOptions.map((city) => (
+                  <Select.Option key={city} value={city}>
+                    {city}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -324,17 +416,17 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="course"
-              label={
-                <span className="formItemLabel">
-                  {toGeorgianUppercase("Freshman / Transfer")}
-                </span>
-              }
               rules={[
                 {
                   required: true,
                   message: toGeorgianUppercase("გთხოვთ აირჩიოთ!"),
                 },
               ]}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("Freshman / Transfer")}
+                </span>
+              }
             >
               <Radio.Group>
                 <div style={{ display: "flex" }}>
@@ -359,30 +451,25 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="mobility"
+              rules={[
+                {
+                  required: true,
+                  message: "გთხოვთ შეიყვანოთ მობილობის სემ კურსი!",
+                },
+              ]}
               label={
                 <span className="formItemLabel">
                   {toGeorgianUppercase("მობილობის სემ კურსი")}
                 </span>
               }
-              rules={[
-                {
-                  validator: (_, value) => {
-                    if (value === undefined || value === "") {
-                      return Promise.resolve();
-                    }
-                    if (!isNaN(value)) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      toGeorgianUppercase(
-                        "მობილობის სემ კურსი უნდა იყოს რიცხვი!"
-                      )
-                    );
-                  },
-                },
-              ]}
             >
-              <Input placeholder="მობილობის სემ კურსი" />
+              <Select>
+                {mobilityOptions.map((mobitity) => (
+                  <Select.Option key={mobitity} value={mobitity}>
+                    {mobitity}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
         </Row>
@@ -391,13 +478,20 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="agent"
+              rules={[{ required: true, message: "გთხოვთ შეიყვანოთ აგენტი!" }]}
               label={
                 <span className="formItemLabel">
                   {toGeorgianUppercase("აგენტი")}
                 </span>
               }
             >
-              <Input placeholder="აგენტი" />
+              <Select>
+                {agentOptions.map((agent) => (
+                  <Select.Option key={agent} value={agent}>
+                    {agent}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
         </Row>

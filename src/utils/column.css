@@ -34,7 +34,8 @@
   line-height: 19.04px;
 }
 
-.placeholder {
+.placeholder,
+.ant-select-selection-item {
   color: #104e8a;
   font-size: 14px;
   font-weight: 400;
@@ -50,12 +51,13 @@
 }
 
 .ant-input,
-.ant-picker {
+.ant-picker,
+.ant-select-selector {
   font-size: 14px;
   font-weight: 400;
   line-height: 19.04px;
   border: 1px solid rgba(17, 91, 164, 0.2);
-  height: 48px;
+  height: 48px !important;
   width: 100%;
 }
 
