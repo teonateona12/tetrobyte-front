@@ -114,14 +114,15 @@ export default function Home() {
       <div style={{ overflowX: "auto", padding: "20px 0 20px 100px" }}>
         <div className="button-div">
           <div>
-            <button></button>
-            <button>yvela studenti</button>
+            <button className="btn-one">&lt;</button>
+            <button className="btn">ყველა სტუდენტი</button>
           </div>
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div>
             <button className="export" onClick={handleExport}>
               ექსპორტი
             </button>
             <Button
+              className="btn"
               type="primary"
               onClick={() => handleModalVisibility("add", true)}
             >

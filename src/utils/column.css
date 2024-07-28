@@ -174,13 +174,34 @@
 .button-div {
   display: flex;
   justify-content: space-between;
+  margin-right: 100px;
 }
-
+.button-div div {
+  display: flex;
+  gap: 10px;
+}
 .export {
   border-radius: 8px;
-  border: 1px solid rgba(17, 91, 164, 0.2);
+  border: 1px solid rgba(17, 91, 164, 1);
   height: 35px;
   width: 162px;
   background-color: white;
   margin-left: 20px;
+}
+
+.btn {
+  background-color: #115ba4;
+  height: 36px;
+  width: 181px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+}
+
+.btn-one {
+  border: 1px solid rgba(17, 91, 164, 0.2);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: white;
 }
