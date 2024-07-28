@@ -284,7 +284,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
               name="dateOfBirth"
               label={
                 <span className="formItemLabel">
-                  {toGeorgianUppercase("დაბადების თარიღ")}
+                  {toGeorgianUppercase("დაბადების თარიღი")}
                 </span>
               }
             >
@@ -397,7 +397,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
                 </span>
               }
             >
-              <Input placeholder="აგენტი" style={{ color: "red" }} />
+              <Input placeholder="აგენტი" />
             </Form.Item>
           </Col>
         </Row>

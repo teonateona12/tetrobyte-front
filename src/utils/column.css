@@ -67,7 +67,7 @@
 .modal-title {
   color: #104e8a;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .ant-modal-body {
@@ -84,6 +84,17 @@
   opacity: 50%;
   height: 55px;
 }
+
 .ant-modal-close-x {
   color: #115ba4;
+}
+
+.ant-input[disabled],
+.ant-picker[disabled] {
+  color: #115ba4;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.04px;
+  border: 1px solid rgba(17, 91, 164, 0.2);
+  background-color: white;
 }
