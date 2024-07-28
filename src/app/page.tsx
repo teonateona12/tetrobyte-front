@@ -10,7 +10,7 @@ import EditStudentModal from "../components/EditStudentModal";
 import AddStudentModal from "../components/AddStudentModal";
 import DeleteStudentModal from "../components/DeleteStudentModal";
 import Header from "@/components/Header";
-import { parse } from "json2csv";
+import { unparse } from "papaparse";
 
 export default function Home() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -93,9 +93,12 @@ export default function Home() {
     popoverVisible,
     setPopoverVisible,
   });
+
   const handleExport = () => {
-    const csv = parse(students);
-    const blob = new Blob([csv], { type: "text/csv" });
+    const csv = unparse(students);
+    const blob = new Blob(["\uFEFF" + csv], {
+      type: "text/csv;charset=utf-8;",
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
