@@ -26,7 +26,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
 
   return (
     <Modal
-      title={toGeorgianUppercase("რედაქტირება")}
+      title={
+        <span className="modal-title">
+          {toGeorgianUppercase("რედაქტირება")}
+        </span>
+      }
       open={open}
       onCancel={onCancel}
       footer={null}
@@ -36,7 +40,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="idNumber"
-              label={toGeorgianUppercase("პირადი N")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("პირადი N")}
+                </span>
+              }
               rules={[
                 {
                   required: true,
@@ -55,7 +63,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="code"
-              label={toGeorgianUppercase("კოდი")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("კოდი")}
+                </span>
+              }
               rules={[
                 {
                   required: true,
@@ -77,7 +89,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="name"
-              label={toGeorgianUppercase("სახელი")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("სახელი")}
+                </span>
+              }
               rules={[{ required: true, message: "გთხოვთ შეიყვანოთ სახელი!" }]}
             >
               <Input />
@@ -86,7 +102,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="lastName"
-              label={toGeorgianUppercase("გვარი")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("გვარი")}
+                </span>
+              }
               rules={[{ required: true, message: "გთხოვთ შეიყვანოთ გვარი!" }]}
             >
               <Input />
@@ -98,7 +118,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="yearOfSubmission"
-              label={toGeorgianUppercase("ჩაბ. წელი")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("ჩაბ. წელი")}
+                </span>
+              }
             >
               <DatePicker picker="year" format="YYYY" />
             </Form.Item>
@@ -106,7 +130,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="graduationYear"
-              label={toGeorgianUppercase("დამთ. წელი")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("დამთ. წელი")}
+                </span>
+              }
             >
               <DatePicker picker="year" format="YYYY" />
             </Form.Item>
@@ -115,12 +143,26 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="status" label={toGeorgianUppercase("სტატუსი")}>
+            <Form.Item
+              name="status"
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("სტატუსი")}
+                </span>
+              }
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="school" label={toGeorgianUppercase("სკოლა")}>
+            <Form.Item
+              name="school"
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("სკოლა")}
+                </span>
+              }
+            >
               <Input />
             </Form.Item>
           </Col>
@@ -128,14 +170,25 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="program" label={toGeorgianUppercase("პროგრამა")}>
+            <Form.Item
+              name="program"
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("პროგრამა")}
+                </span>
+              }
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="email"
-              label={toGeorgianUppercase("ელფოსტა")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("ელფოსტა")}
+                </span>
+              }
               rules={[{ required: true, message: "გთხოვთ შეიყვანოთ ელფოსტა!" }]}
             >
               <Input />
@@ -145,12 +198,26 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="voucher" label={toGeorgianUppercase("ვაუჩერი")}>
+            <Form.Item
+              name="voucher"
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("ვაუჩერი")}
+                </span>
+              }
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="grant" label={toGeorgianUppercase("გრანტი")}>
+            <Form.Item
+              name="grant"
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("გრანტი")}
+                </span>
+              }
+            >
               <Input />
             </Form.Item>
           </Col>
@@ -160,7 +227,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="citizenship"
-              label={toGeorgianUppercase("მოქალაქეობა")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("მოქალაქეობა")}
+                </span>
+              }
             >
               <Input />
             </Form.Item>
@@ -168,7 +239,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="dateOfBirth"
-              label={toGeorgianUppercase("დაბადების თარიღი")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("დაბადების თარიღი")}
+                </span>
+              }
             >
               <DatePicker format="YYYY-MM-DD" />
             </Form.Item>
@@ -179,7 +254,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="cityOfBirth"
-              label={toGeorgianUppercase("დაბადების ქალაქი")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("დაბადების ქალაქი")}
+                </span>
+              }
             >
               <Input />
             </Form.Item>
@@ -187,7 +266,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="language"
-              label={toGeorgianUppercase("სწავლების ენა")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("სწავლების ენა")}
+                </span>
+              }
             >
               <Input />
             </Form.Item>
@@ -198,7 +281,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="course"
-              label={toGeorgianUppercase("Freshman / Transfer")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("Freshman / Transfer")}
+                </span>
+              }
               rules={[
                 {
                   required: true,
@@ -208,10 +295,16 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
             >
               <Radio.Group>
                 <div style={{ display: "flex" }}>
-                  <Radio value="FRESHMAN" className="course-radio">
+                  <Radio
+                    value="FRESHMAN"
+                    className="course-radio formItemRadio"
+                  >
                     <span className="circle-indicator" /> FRESHMAN
                   </Radio>
-                  <Radio value="TRANSFER" className="course-radio">
+                  <Radio
+                    value="TRANSFER"
+                    className="course-radio formItemRadio"
+                  >
                     <span className="circle-indicator" /> TRANSFER
                   </Radio>
                 </div>
@@ -221,7 +314,11 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="mobility"
-              label={toGeorgianUppercase("მობილობის სემ კურსი")}
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("მობილობის სემ კურსი")}
+                </span>
+              }
               rules={[
                 {
                   validator: (_, value) => {
@@ -245,14 +342,21 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="agent" label={toGeorgianUppercase("აგენტი")}>
+            <Form.Item
+              name="agent"
+              label={
+                <span className="formItemLabel">
+                  {toGeorgianUppercase("აგენტი")}
+                </span>
+              }
+            >
               <Input />
             </Form.Item>
           </Col>
         </Row>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button className="editBtn" type="primary" htmlType="submit">
             {toGeorgianUppercase("შენახვა")}
           </Button>
         </Form.Item>
