@@ -2,9 +2,9 @@ import { ColumnsType } from "antd/es/table";
 import { Student } from "../types/student";
 import { Button, Menu, Popover } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
+import { Dispatch, SetStateAction } from "react";
 import moment from "moment";
 import "./column.css";
-import { Dispatch, SetStateAction } from "react";
 
 interface StudentColumnsProps {
   onView: (record: Student) => void;
@@ -38,13 +38,13 @@ const studentColumns = ({
         <Popover
           content={
             <Menu>
-              <Menu.Item onClick={() => onView(record)}>
+              <Menu.Item className="menu" onClick={() => onView(record)}>
                 {toGeorgianUppercase("დეტალურად ნახვა")}
               </Menu.Item>
-              <Menu.Item onClick={() => onEdit(record)}>
+              <Menu.Item className="menu" onClick={() => onEdit(record)}>
                 {toGeorgianUppercase("რედაქტირება")}
               </Menu.Item>
-              <Menu.Item onClick={() => onDelete(record)}>
+              <Menu.Item className="menu" onClick={() => onDelete(record)}>
                 {toGeorgianUppercase("წაშლა")}
               </Menu.Item>
             </Menu>

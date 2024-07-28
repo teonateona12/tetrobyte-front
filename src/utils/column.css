@@ -2,12 +2,15 @@
   font-family: "Noto Sans Georgian", sans-serif;
   font-optical-sizing: auto;
 }
+
 .horizontal-dots {
   transform: rotate(90deg);
   background-color: white;
   color: #115ba4;
 }
-
+.ant-popover-content {
+  margin-top: -60px;
+}
 .custom-table-cell,
 .custom-table-header {
   color: #115ba4;
@@ -15,6 +18,72 @@
   font-weight: 400;
   line-height: 19.04px;
 }
+
 .custom-table-header {
-  font-family: "Noto Sans Georgian", sans-serif; /* Apply the custom font */
+  font-family: "Noto Sans Georgian", sans-serif;
+}
+.menu span {
+  color: #115ba4;
+  font-size: 14px;
+  font-weight: 400;
+}
+.formItemLabel {
+  color: #104e8a;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19.04px;
+}
+
+.placeholder {
+  color: #104e8a;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.04px;
+  opacity: 50%;
+}
+
+.formItemRadio {
+  color: #104e8a;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.04px;
+}
+
+.ant-input,
+.ant-picker {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.04px;
+  border: 1px solid rgba(17, 91, 164, 0.2);
+  height: 48px;
+  width: 100%;
+}
+
+.ant-input::placeholder {
+  color: #104e8a;
+  opacity: 40%;
+}
+
+.modal-title {
+  color: #104e8a;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.ant-modal-body {
+  margin-top: 40px;
+}
+
+.ant-modal-content {
+  border-radius: 0 !important;
+}
+
+.ant-modal-footer .ant-btn-primary {
+  width: 100%;
+  background-color: #104e8a;
+  opacity: 50%;
+  height: 55px;
+}
+.ant-modal-close-x {
+  color: #115ba4;
 }
