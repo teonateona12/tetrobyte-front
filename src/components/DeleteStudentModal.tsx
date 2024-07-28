@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal } from "antd";
+import { toGeorgianUppercase } from "@/utils/column";
 
 interface DeleteStudentModalProps {
   open: boolean;
@@ -17,11 +18,11 @@ const DeleteStudentModal: React.FC<DeleteStudentModalProps> = ({
       open={open}
       onOk={onSuccess}
       onCancel={onCancel}
-      okText="დიახ"
-      cancelText="არა"
+      okText={toGeorgianUppercase("დიახ")}
+      cancelText={toGeorgianUppercase("არა")}
       centered
     >
-      <p>ნამდვილად გსურთ სტუდენტის წაშლა?</p>
+      <p>{toGeorgianUppercase("ნამდვილად გსურთ სტუდენტის წაშლა?")}</p>
     </Modal>
   );
 };

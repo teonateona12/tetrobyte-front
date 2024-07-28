@@ -1,7 +1,20 @@
+.noto-sans-georgian {
+  font-family: "Noto Sans Georgian", sans-serif;
+  font-optical-sizing: auto;
+}
 .horizontal-dots {
   transform: rotate(90deg);
   background-color: white;
+  color: #115ba4;
 }
-.ant-popover-content {
-  margin-top: -60px;
+
+.custom-table-cell,
+.custom-table-header {
+  color: #115ba4;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.04px;
+}
+.custom-table-header {
+  font-family: "Noto Sans Georgian", sans-serif; /* Apply the custom font */
 }

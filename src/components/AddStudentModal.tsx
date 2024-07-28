@@ -2,6 +2,7 @@ import { Modal, Form, Input, Row, Col, DatePicker, Button, Radio } from "antd";
 import { FormInstance } from "antd/es/form";
 import { addStudent } from "@/services/api";
 import React from "react";
+import { toGeorgianUppercase } from "@/utils/column";
 
 interface AddStudentModalProps {
   open: boolean;
@@ -33,15 +34,15 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
 
   return (
     <Modal
-      title="ახლის დამატება"
+      title={toGeorgianUppercase("ახლის დამატება")}
       open={open}
       onCancel={onCancel}
       onOk={handleFormSubmit}
-      okText="დამატება"
+      okText={toGeorgianUppercase("დამატება")}
       footer={
         <div>
           <Button key="submit" type="primary" onClick={handleFormSubmit}>
-            დამატება
+            {toGeorgianUppercase("დამატება")}
           </Button>
         </div>
       }
@@ -59,16 +60,20 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="idNumber"
-              label="პირადი N"
+              label={toGeorgianUppercase("პირადი N")}
               rules={[
                 {
                   required: true,
-                  message: "გთხოვთ შეიყვანოთ პირადი ნომერი!",
+                  message: toGeorgianUppercase(
+                    "გთხოვთ შეიყვანოთ პირადი ნომერი!"
+                  ),
                 },
                 {
                   type: "number",
                   transform: (value) => Number(value),
-                  message: "პირადი ნომერი უნდა იყოს რიცხვი!",
+                  message: toGeorgianUppercase(
+                    "პირადი ნომერი უნდა იყოს რიცხვი!"
+                  ),
                 },
               ]}
             >
@@ -78,16 +83,16 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="code"
-              label="კოდი"
+              label={toGeorgianUppercase("კოდი")}
               rules={[
                 {
                   required: true,
-                  message: "გთხოვთ შეიყვანოთ კოდი!",
+                  message: toGeorgianUppercase("გთხოვთ შეიყვანოთ კოდი!"),
                 },
                 {
                   type: "number",
                   transform: (value) => Number(value),
-                  message: "კოდი უნდა იყოს რიცხვი!",
+                  message: toGeorgianUppercase("კოდი უნდა იყოს რიცხვი!"),
                 },
               ]}
             >
@@ -100,8 +105,13 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="name"
-              label="სახელი"
-              rules={[{ required: true, message: "გთხოვთ შეიყვანოთ სახელი!" }]}
+              label={toGeorgianUppercase("სახელი")}
+              rules={[
+                {
+                  required: true,
+                  message: toGeorgianUppercase("გთხოვთ შეიყვანოთ სახელი!"),
+                },
+              ]}
             >
               <Input />
             </Form.Item>
@@ -109,8 +119,13 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="lastName"
-              label="გვარი"
-              rules={[{ required: true, message: "გთხოვთ შეიყვანოთ გვარი!" }]}
+              label={toGeorgianUppercase("გვარი")}
+              rules={[
+                {
+                  required: true,
+                  message: toGeorgianUppercase("გთხოვთ შეიყვანოთ გვარი!"),
+                },
+              ]}
             >
               <Input />
             </Form.Item>
@@ -119,12 +134,18 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="yearOfSubmission" label="ჩაბ. წელი">
+            <Form.Item
+              name="yearOfSubmission"
+              label={toGeorgianUppercase("ჩაბ. წელი")}
+            >
               <DatePicker picker="year" format="YYYY" />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="graduationYear" label="დამთ. წელი">
+            <Form.Item
+              name="graduationYear"
+              label={toGeorgianUppercase("დამთ. წელი")}
+            >
               <DatePicker picker="year" format="YYYY" />
             </Form.Item>
           </Col>
@@ -132,12 +153,12 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="status" label="სტატუსი">
+            <Form.Item name="status" label={toGeorgianUppercase("სტატუსი")}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="school" label="სკოლა">
+            <Form.Item name="school" label={toGeorgianUppercase("სკოლა")}>
               <Input />
             </Form.Item>
           </Col>
@@ -145,15 +166,20 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="program" label="პროგრამა">
+            <Form.Item name="program" label={toGeorgianUppercase("პროგრამა")}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               name="email"
-              label="ელფოსტა"
-              rules={[{ required: true, message: "გთხოვთ შეიყვანოთ ელფოსტა!" }]}
+              label={toGeorgianUppercase("ელფოსტა")}
+              rules={[
+                {
+                  required: true,
+                  message: toGeorgianUppercase("გთხოვთ შეიყვანოთ ელფოსტა!"),
+                },
+              ]}
             >
               <Input />
             </Form.Item>
@@ -162,12 +188,12 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="voucher" label="ვაუჩერი">
+            <Form.Item name="voucher" label={toGeorgianUppercase("ვაუჩერი")}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="grant" label="გრანტი">
+            <Form.Item name="grant" label={toGeorgianUppercase("გრანტი")}>
               <Input />
             </Form.Item>
           </Col>
@@ -175,12 +201,18 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="citizenship" label="მოქალაქეობა">
+            <Form.Item
+              name="citizenship"
+              label={toGeorgianUppercase("მოქალაქეობა")}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="dateOfBirth" label="დაბადების თარიღი">
+            <Form.Item
+              name="dateOfBirth"
+              label={toGeorgianUppercase("დაბადების თარიღი")}
+            >
               <DatePicker format="YYYY-MM-DD" />
             </Form.Item>
           </Col>
@@ -188,12 +220,18 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="cityOfBirth" label="დაბადების ქალაქი">
+            <Form.Item
+              name="cityOfBirth"
+              label={toGeorgianUppercase("დაბადების ქალაქი")}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="language" label="სწავლების ენა">
+            <Form.Item
+              name="language"
+              label={toGeorgianUppercase("სწავლების ენა")}
+            >
               <Input />
             </Form.Item>
           </Col>
@@ -203,21 +241,23 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="course"
-              label="Freshman / Transfer"
+              label={toGeorgianUppercase("Freshman / Transfer")}
               rules={[
                 {
                   required: true,
-                  message: "გთხოვთ აირჩიოთ!",
+                  message: toGeorgianUppercase("გთხოვთ აირჩიოთ!"),
                 },
               ]}
             >
               <Radio.Group>
                 <div style={{ display: "flex" }}>
                   <Radio value="FRESHMAN" className="course-radio">
-                    <span className="circle-indicator" /> FRESHMAN
+                    <span className="circle-indicator" />{" "}
+                    {toGeorgianUppercase("FRESHMAN")}
                   </Radio>
                   <Radio value="TRANSFER" className="course-radio">
-                    <span className="circle-indicator" /> TRANSFER
+                    <span className="circle-indicator" />{" "}
+                    {toGeorgianUppercase("TRANSFER")}
                   </Radio>
                 </div>
               </Radio.Group>
@@ -226,7 +266,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
           <Col span={12}>
             <Form.Item
               name="mobility"
-              label="მობილობის სემ კურსი"
+              label={toGeorgianUppercase("მობილობის სემ კურსი")}
               rules={[
                 {
                   validator: (_, value) => {
@@ -237,7 +277,9 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
                       return Promise.resolve();
                     }
                     return Promise.reject(
-                      "მობილობის სემ კურსი უნდა იყოს რიცხვი!"
+                      toGeorgianUppercase(
+                        "მობილობის სემ კურსი უნდა იყოს რიცხვი!"
+                      )
                     );
                   },
                 },
@@ -250,7 +292,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
 
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item name="agent" label="აგენტი">
+            <Form.Item name="agent" label={toGeorgianUppercase("აგენტი")}>
               <Input />
             </Form.Item>
           </Col>

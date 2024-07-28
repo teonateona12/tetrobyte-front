@@ -1,19 +1,24 @@
 import { ColumnsType } from "antd/es/table";
 import { Student } from "../types/student";
-import { Button, Menu, Popover, DatePicker } from "antd";
+import { Button, Menu, Popover } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
 import moment from "moment";
 import "./column.css";
+import { Dispatch, SetStateAction } from "react";
 
 interface StudentColumnsProps {
   onView: (record: Student) => void;
   onEdit: (record: Student) => void;
   onDelete: (record: Student) => void;
   popoverVisible: Record<string, boolean>;
-  setPopoverVisible: React.Dispatch<
-    React.SetStateAction<Record<string, boolean>>
-  >;
+  setPopoverVisible: Dispatch<SetStateAction<Record<string, boolean>>>;
 }
+export const toGeorgianUppercase = (text: string | undefined): string => {
+  if (!text || text === "") {
+    return "";
+  }
+  return text.toLocaleUpperCase("ka-GE");
+};
 
 const studentColumns = ({
   onView,
@@ -23,7 +28,6 @@ const studentColumns = ({
   setPopoverVisible,
 }: StudentColumnsProps): ColumnsType<Student> => [
   {
-    title: "Actions",
     key: "actions",
     render: (_, record) => {
       const handlePopoverVisibleChange = (visible: boolean) => {
@@ -33,17 +37,20 @@ const studentColumns = ({
       return (
         <Popover
           content={
-            <Menu className="popover-menu">
+            <Menu>
               <Menu.Item onClick={() => onView(record)}>
-                დეტალურად ნახვა
+                {toGeorgianUppercase("დეტალურად ნახვა")}
               </Menu.Item>
-              <Menu.Item onClick={() => onEdit(record)}>რედაქტირება</Menu.Item>
-              <Menu.Item onClick={() => onDelete(record)}>წაშლა</Menu.Item>
+              <Menu.Item onClick={() => onEdit(record)}>
+                {toGeorgianUppercase("რედაქტირება")}
+              </Menu.Item>
+              <Menu.Item onClick={() => onDelete(record)}>
+                {toGeorgianUppercase("წაშლა")}
+              </Menu.Item>
             </Menu>
           }
           trigger="click"
           placement="rightTop"
-          overlayClassName="popover-overlay"
           open={popoverVisible[record._id] ?? false}
           onOpenChange={handlePopoverVisibleChange}
         >
@@ -55,46 +62,212 @@ const studentColumns = ({
         </Popover>
       );
     },
+    className: "custom-table-cell",
   },
-  { title: "პირადი N", dataIndex: "idNumber", key: "idNumber" },
-  { title: "კოდი", dataIndex: "code", key: "code" },
-  { title: "სახელი", dataIndex: "name", key: "name" },
-  { title: "გვარი", dataIndex: "lastName", key: "lastName" },
   {
-    title: "ჩაბ. წელი",
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("პირადი N.")}
+      </span>
+    ),
+    dataIndex: "idNumber",
+    key: "idNumber",
+    className: "custom-table-cell",
+  },
+  {
+    title: (
+      <span className="custom-table-header">{toGeorgianUppercase("კოდი")}</span>
+    ),
+    dataIndex: "code",
+    key: "code",
+    className: "custom-table-cell",
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("სახელი")}
+      </span>
+    ),
+    dataIndex: "name",
+    key: "name",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("გვარი")}
+      </span>
+    ),
+    dataIndex: "lastName",
+    key: "lastName",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("ჩაბ. წელი")}
+      </span>
+    ),
     dataIndex: "yearOfSubmission",
     key: "yearOfSubmission",
     render: (text: string) => moment(text).format("YYYY"),
+    className: "custom-table-cell",
   },
   {
-    title: "დამთ. წელი",
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("დამთ. წელი")}
+      </span>
+    ),
     dataIndex: "graduationYear",
     key: "graduationYear",
     render: (text: string) => moment(text).format("YYYY"),
+    className: "custom-table-cell",
   },
-  { title: "სტატუსი", dataIndex: "status", key: "status" },
-  { title: "სკოლა", dataIndex: "school", key: "school" },
-  { title: "პროგრამა", dataIndex: "program", key: "program" },
-  { title: "ელფოსტა", dataIndex: "email", key: "email" },
-  { title: "ვაუჩერი", dataIndex: "voucher", key: "voucher" },
-  { title: "გრანტი", dataIndex: "grant", key: "grant" },
-  { title: "მოქალაქეობა", dataIndex: "citizenship", key: "citizenship" },
   {
-    title: "დაბადების თარიღი",
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("სტატუსი")}
+      </span>
+    ),
+    dataIndex: "status",
+    key: "status",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("სკოლა")}
+      </span>
+    ),
+    dataIndex: "school",
+    key: "school",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("პროგრამა")}
+      </span>
+    ),
+    dataIndex: "program",
+    key: "program",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("ელფოსტა")}
+      </span>
+    ),
+    dataIndex: "email",
+    key: "email",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("ვაუჩერი")}
+      </span>
+    ),
+    dataIndex: "voucher",
+    key: "voucher",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("გრანტი")}
+      </span>
+    ),
+    dataIndex: "grant",
+    key: "grant",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("მოქალაქეობა")}
+      </span>
+    ),
+    dataIndex: "citizenship",
+    key: "citizenship",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("დაბადების თარიღი")}
+      </span>
+    ),
     dataIndex: "dateOfBirth",
     key: "dateOfBirth",
     render: (text: string) => moment(text).format("YYYY-MM-DD"),
+    className: "custom-table-cell",
   },
-  { title: "დაბადების ქალაქი", dataIndex: "cityOfBirth", key: "cityOfBirth" },
-  { title: "სწავლების ენა", dataIndex: "language", key: "language" },
-  { title: "Freshman / Transfer", dataIndex: "course", key: "course" },
   {
-    title: "მობილობის სემ კურსი",
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("დაბადების ქალაქი")}
+      </span>
+    ),
+    dataIndex: "cityOfBirth",
+    key: "cityOfBirth",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("სწავლების ენა")}
+      </span>
+    ),
+    dataIndex: "language",
+    key: "language",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("Freshman / Transfer")}
+      </span>
+    ),
+    dataIndex: "course",
+    key: "course",
+    className: "custom-table-cell",
+  },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("მობილობის სემ კურსი")}
+      </span>
+    ),
     dataIndex: "mobility",
     key: "mobility",
     render: (text: number) => text,
+    className: "custom-table-cell",
   },
-  { title: "აგენტი", dataIndex: "agent", key: "agent" },
+  {
+    title: (
+      <span className="custom-table-header">
+        {toGeorgianUppercase("აგენტი")}
+      </span>
+    ),
+    dataIndex: "agent",
+    key: "agent",
+    className: "custom-table-cell",
+    render: (text: string) => <span>{toGeorgianUppercase(text)}</span>,
+  },
 ];
 
 export default studentColumns;

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button, Table, Form } from "antd";
 import { deleteStudent, fetchStudents, updateStudent } from "@/services/api";
 import { Student } from "../types/student";
-import studentColumns from "../utils/column";
+import studentColumns, { toGeorgianUppercase } from "../utils/column";
 import StudentDetailModal from "../components/StudentDetailModal";
 import EditStudentModal from "../components/EditStudentModal";
 import AddStudentModal from "../components/AddStudentModal";
@@ -94,13 +94,13 @@ export default function Home() {
 
   return (
     <div style={{ padding: "24px", overflowX: "auto" }}>
-      <h1>სტუდენტები</h1>
+      <h1>{toGeorgianUppercase("სტუდენტები")}</h1>
       <Button
         type="primary"
         onClick={() => handleModalVisibility("add", true)}
         style={{ marginBottom: "16px" }}
       >
-        ახლის დამატება
+        {toGeorgianUppercase("ახლის დამატება")}
       </Button>
       <Table
         dataSource={students}
